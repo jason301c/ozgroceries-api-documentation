@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import type { ApiEndpoint } from '../hooks/useApiCall';
+import React, { useState } from "react";
+import type { ApiEndpoint } from "../hooks/useApiCall";
 
 interface RightDesktopViewProps {
   selectedEndpoint: ApiEndpoint | null;
   loading: boolean;
   error: string | null;
   response: any;
-  onExecuteRequest: (endpoint: ApiEndpoint, params: Record<string, any>) => void;
+  onExecuteRequest: (
+    endpoint: ApiEndpoint,
+    params: Record<string, any>
+  ) => void;
 }
 
 const RightDesktopView: React.FC<RightDesktopViewProps> = ({
@@ -39,8 +42,8 @@ const RightDesktopView: React.FC<RightDesktopViewProps> = ({
             Welcome to OzGroceries API
           </h2>
           <p className="text-lg text-gray-600 mb-8">
-            Select an endpoint from the left sidebar to start exploring
-            the API documentation and testing endpoints.
+            Select an endpoint from the left sidebar to start exploring the API
+            documentation and testing endpoints.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <div className="flex items-center gap-3 text-left p-4 bg-white rounded-lg shadow transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md">
@@ -81,7 +84,7 @@ const RightDesktopView: React.FC<RightDesktopViewProps> = ({
 
   return (
     <div className="flex-1 overflow-y-auto bg-gray-50">
-      <div className="p-8 max-w-4xl mx-auto bg-white rounded-lg shadow-md my-8">
+      <div className="p-8 max-w-5xl mx-auto bg-white rounded-lg shadow-md my-8">
         <div className="mb-8 pb-4 border-b border-gray-200">
           <h2 className="text-2xl font-bold mb-2 text-gray-800">
             {selectedEndpoint.method} {selectedEndpoint.path}
@@ -101,9 +104,7 @@ const RightDesktopView: React.FC<RightDesktopViewProps> = ({
               >
                 <label className="block font-semibold mb-2">
                   <span className="text-gray-800">{param.name}</span>
-                  <span className="text-gray-600 text-sm">
-                    ({param.type})
-                  </span>
+                  <span className="text-gray-600 text-sm">({param.type})</span>
                   {param.required && (
                     <span className="text-primary-500 font-bold">*</span>
                   )}
