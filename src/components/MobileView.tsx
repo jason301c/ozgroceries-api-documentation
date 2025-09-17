@@ -60,6 +60,18 @@ const MobileView: React.FC<MobileViewProps> = ({
           </p>
         </div>
 
+        <div className="bg-white rounded-lg shadow-sm mb-4 p-6">
+          <h2 className="text-sm font-semibold mb-3 text-gray-700 uppercase tracking-wide">
+            Base URL
+          </h2>
+          <p className="text-sm text-gray-600 mb-3">
+            All API requests should be made to the following base URL:
+          </p>
+          <div className="bg-gray-100 border border-gray-200 rounded-lg p-3 font-mono text-sm text-gray-800 break-all">
+            https://groceries-api.jasondev.me
+          </div>
+        </div>
+
         <h2 className="text-lg font-semibold mb-4 text-gray-700">
           Available Endpoints
         </h2>

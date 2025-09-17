@@ -54,6 +54,18 @@ const LeftDesktopView: React.FC<LeftDesktopViewProps> = ({
 
           <section className="space-y-3">
             <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+              Base URL
+            </h2>
+            <div className="space-y-3 text-sm leading-snug text-gray-600">
+              <p>All API requests should be made to the following base URL:</p>
+              <div className="bg-gray-100 border border-gray-200 rounded-lg p-3 font-mono text-sm text-gray-800 break-all">
+                https://groceries-api.jasondev.me
+              </div>
+            </div>
+          </section>
+
+          <section className="space-y-3">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-gray-500">
               Available Endpoints
             </h2>
             <div className="space-y-3">
