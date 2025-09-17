@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { ApiEndpoint } from '../hooks/useApiCall';
+import ParameterInputCard from './ParameterInputCard';
 
 interface MobileViewProps {
   selectedEndpoint: ApiEndpoint | null;
@@ -107,31 +108,14 @@ const MobileView: React.FC<MobileViewProps> = ({
           Parameters
         </h3>
 
-        <div className="space-y-4 mb-6">
-          {selectedEndpoint.parameters.map((param, index) => (
-            <div key={index} className="bg-gray-50 p-4 rounded-lg">
-              <label className="block font-semibold mb-2">
-                <span className="text-gray-800">{param.name}</span>
-                <span className="text-gray-600 text-sm">
-                  ({param.type})
-                </span>
-                {param.required && (
-                  <span className="text-primary-500 font-bold">*</span>
-                )}
-              </label>
-              <input
-                type={param.type === "number" ? "number" : "text"}
-                placeholder={param.description}
-                value={requestParams[param.name] || ""}
-                onChange={(e) =>
-                  handleParamChange(param.name, e.target.value)
-                }
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-              />
-              <p className="text-xs text-gray-600 mt-1">
-                {param.description}
-              </p>
-            </div>
+        <div className="space-y-3 mb-6">
+          {selectedEndpoint.parameters.map((param) => (
+            <ParameterInputCard
+              key={param.name}
+              param={param}
+              value={requestParams[param.name] ?? ""}
+              onChange={(value) => handleParamChange(param.name, value)}
+            />
           ))}
         </div>
 

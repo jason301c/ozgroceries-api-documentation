@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import type { ApiEndpoint } from "../hooks/useApiCall";
+import ParameterInputCard from "./ParameterInputCard";
 
 interface RightDesktopViewProps {
   selectedEndpoint: ApiEndpoint | null;
@@ -36,46 +37,42 @@ const RightDesktopView: React.FC<RightDesktopViewProps> = ({
 
   if (!selectedEndpoint) {
     return (
-      <div className="flex items-center justify-center h-full p-8">
-        <div className="text-center max-w-2xl">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4 border-none pb-0">
+      <div className="flex-1 overflow-y-auto bg-gray-50">
+        <div className="mx-auto flex w-full max-w-4xl flex-col items-center px-6 py-10 text-center">
+          <h2 className="text-3xl font-semibold text-gray-800">
             Welcome to OzGroceries API
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
-            Select an endpoint from the left sidebar to start exploring the API
-            documentation and testing endpoints.
+          <p className="mt-3 text-base text-gray-600">
+            Select an endpoint from the left sidebar to explore documentation
+            and run sample requests.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-            <div className="flex items-center gap-3 text-left p-4 bg-white rounded-lg shadow transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md">
-              <div>
-                <h4 className="font-semibold text-gray-800 mb-1">
-                  Product Search
+          <div className="mt-10 grid w-full gap-4 sm:grid-cols-2 md:grid-cols-3">
+            {[
+              {
+                title: "Product Search",
+                description: "Advanced filtering and search capabilities",
+              },
+              {
+                title: "Price History",
+                description: "Track historical price changes over time",
+              },
+              {
+                title: "Barcode Lookup",
+                description: "Find products by barcode or GTIN",
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-left shadow-sm"
+              >
+                <h4 className="text-sm font-semibold text-gray-800">
+                  {item.title}
                 </h4>
-                <p className="text-sm text-gray-600">
-                  Advanced filtering and search capabilities
+                <p className="mt-1 text-sm text-gray-600">
+                  {item.description}
                 </p>
               </div>
-            </div>
-            <div className="flex items-center gap-3 text-left p-4 bg-white rounded-lg shadow transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md">
-              <div>
-                <h4 className="font-semibold text-gray-800 mb-1">
-                  Price History
-                </h4>
-                <p className="text-sm text-gray-600">
-                  Track historical price changes over time
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 text-left p-4 bg-white rounded-lg shadow transition-all duration-200 hover:translate-y-[-2px] hover:shadow-md">
-              <div>
-                <h4 className="font-semibold text-gray-800 mb-1">
-                  Barcode Lookup
-                </h4>
-                <p className="text-sm text-gray-600">
-                  Find products by barcode or GTIN
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
@@ -84,79 +81,74 @@ const RightDesktopView: React.FC<RightDesktopViewProps> = ({
 
   return (
     <div className="flex-1 overflow-y-auto bg-gray-50">
-      <div className="p-8 max-w-5xl mx-auto bg-white rounded-lg shadow-md my-8">
-        <div className="mb-8 pb-4 border-b border-gray-200">
-          <h2 className="text-2xl font-bold mb-2 text-gray-800">
-            {selectedEndpoint.method} {selectedEndpoint.path}
-          </h2>
-          <p className="text-gray-600">{selectedEndpoint.description}</p>
-        </div>
+      <div className="mx-auto w-full max-w-5xl px-6 py-8">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+          <div className="border-b border-gray-200 px-6 py-5">
+            <h2 className="text-2xl font-semibold text-gray-800">
+              {selectedEndpoint.method} {selectedEndpoint.path}
+            </h2>
+            <p className="mt-2 text-sm text-gray-600">
+              {selectedEndpoint.description}
+            </p>
+          </div>
 
-        <div className="mb-8">
-          <h3 className="text-xl font-semibold mb-4 text-gray-800 flex items-center gap-2">
-            ⚙️ Parameters
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            {selectedEndpoint.parameters.map((param, index) => (
-              <div
-                key={index}
-                className="p-4 bg-gray-50 border border-gray-200 rounded-lg transition-all duration-200 hover:border-primary-500 hover:shadow-primary-light"
-              >
-                <label className="block font-semibold mb-2">
-                  <span className="text-gray-800">{param.name}</span>
-                  <span className="text-gray-600 text-sm">({param.type})</span>
-                  {param.required && (
-                    <span className="text-primary-500 font-bold">*</span>
-                  )}
-                </label>
-                <input
-                  type={param.type === "number" ? "number" : "text"}
-                  placeholder={param.description}
-                  value={requestParams[param.name] || ""}
-                  onChange={(e) =>
-                    handleParamChange(param.name, e.target.value)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent mt-1"
-                />
-                <p className="text-xs text-gray-600 mt-1">
-                  {param.description}
-                </p>
+          <div className="space-y-6 px-6 py-6">
+            <section>
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-800">
+                  Parameters
+                </h3>
+                <span className="text-xs uppercase tracking-wide text-gray-500">
+                  Provide only the fields you need
+                </span>
               </div>
-            ))}
+              <div className="mt-4 grid grid-cols-1 gap-3 md:grid-cols-2">
+                {selectedEndpoint.parameters.map((param) => (
+                  <ParameterInputCard
+                    key={param.name}
+                    param={param}
+                    value={requestParams[param.name] ?? ""}
+                    onChange={(value) => handleParamChange(param.name, value)}
+                  />
+                ))}
+              </div>
+            </section>
+
+            <div className="flex flex-col items-stretch gap-4 border-t border-gray-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-xs text-gray-500">
+                Fields marked with <span className="text-primary-500">*</span>{" "}
+                are required.
+              </p>
+              <button
+                onClick={executeRequest}
+                disabled={loading}
+                className="inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:translate-y-[-1px] hover:shadow-primary-hover disabled:translate-y-0 disabled:bg-gray-400 disabled:shadow-none"
+              >
+                {loading ? "Executing..." : "Execute Request"}
+              </button>
+            </div>
+
+            {error && (
+              <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3">
+                <h3 className="text-sm font-semibold text-red-700">Error</h3>
+                <pre className="mt-2 max-h-[320px] overflow-y-auto whitespace-pre-wrap break-words rounded border border-red-200 bg-white p-3 font-mono text-xs text-red-600">
+                  {error}
+                </pre>
+              </div>
+            )}
+
+            {response && (
+              <div className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-4 shadow-inner">
+                <h3 className="text-sm font-semibold text-gray-800">
+                  Response
+                </h3>
+                <pre className="mt-3 max-h-[420px] overflow-y-auto whitespace-pre-wrap break-words font-mono text-xs text-gray-700">
+                  {JSON.stringify(response, null, 2)}
+                </pre>
+              </div>
+            )}
           </div>
         </div>
-
-        <div className="mb-8 text-center">
-          <button
-            onClick={executeRequest}
-            disabled={loading}
-            className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-lg transition-all duration-200 hover:translate-y-[-2px] hover:shadow-primary-hover disabled:bg-gray-400 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none"
-          >
-            {loading ? "Executing..." : "Execute Request"}
-          </button>
-        </div>
-
-        {error && (
-          <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-lg animate-slide-in">
-            <h3 className="text-red-700 font-semibold mb-2 flex items-center gap-2">
-              Error
-            </h3>
-            <pre className="text-red-600 font-mono text-sm whitespace-pre-wrap break-words bg-white p-3 rounded border border-red-200">
-              {error}
-            </pre>
-          </div>
-        )}
-
-        {response && (
-          <div className="mb-8 animate-slide-in">
-            <h3 className="text-lg font-semibold mb-2 flex items-center gap-2">
-              Response
-            </h3>
-            <pre className="bg-gray-50 border border-gray-200 rounded-lg p-4 font-mono text-sm whitespace-pre-wrap break-words max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-primary-500 scrollbar-track-gray-100 hover:scrollbar-thumb-primary-600 shadow-inner">
-              {JSON.stringify(response, null, 2)}
-            </pre>
-          </div>
-        )}
       </div>
     </div>
   );
