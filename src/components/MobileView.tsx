@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import type { ApiEndpoint } from '../hooks/useApiCall';
-import ParameterInputCard from './ParameterInputCard';
+import React, { useState } from "react";
+import type { ApiEndpoint } from "../hooks/useApiCall";
+import ParameterInputCard from "./ParameterInputCard";
+import ResponseCard from "./ResponseCard";
 
 interface MobileViewProps {
   selectedEndpoint: ApiEndpoint | null;
@@ -8,7 +9,10 @@ interface MobileViewProps {
   error: string | null;
   response: any;
   onEndpointSelect: (endpoint: ApiEndpoint) => void;
-  onExecuteRequest: (endpoint: ApiEndpoint, params: Record<string, any>) => void;
+  onExecuteRequest: (
+    endpoint: ApiEndpoint,
+    params: Record<string, any>
+  ) => void;
   apiEndpoints: ApiEndpoint[];
 }
 
@@ -74,9 +78,7 @@ const MobileView: React.FC<MobileViewProps> = ({
                 {endpoint.path}
               </span>
             </div>
-            <p className="text-sm text-gray-600">
-              {endpoint.description}
-            </p>
+            <p className="text-sm text-gray-600">{endpoint.description}</p>
           </div>
         ))}
       </div>
@@ -104,9 +106,7 @@ const MobileView: React.FC<MobileViewProps> = ({
         </h2>
         <p className="text-gray-600 mb-4">{selectedEndpoint.description}</p>
 
-        <h3 className="text-lg font-semibold mb-3 text-gray-800">
-          Parameters
-        </h3>
+        <h3 className="text-lg font-semibold mb-3 text-gray-800">Parameters</h3>
 
         <div className="space-y-3 mb-6">
           {selectedEndpoint.parameters.map((param) => (
@@ -128,23 +128,12 @@ const MobileView: React.FC<MobileViewProps> = ({
         </button>
       </div>
 
-      {error && (
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
-          <h3 className="text-red-700 font-semibold mb-2">Error</h3>
-          <pre className="text-red-600 font-mono text-sm whitespace-pre-wrap break-words bg-red-50 p-3 rounded border border-red-200">
-            {error}
-          </pre>
-        </div>
-      )}
-
-      {response && (
-        <div className="bg-white rounded-lg shadow-sm p-6">
-          <h3 className="text-lg font-semibold mb-2">Response</h3>
-          <pre className="bg-gray-50 border border-gray-200 rounded-lg p-4 font-mono text-sm whitespace-pre-wrap break-words max-h-[400px] overflow-y-auto">
-            {JSON.stringify(response, null, 2)}
-          </pre>
-        </div>
-      )}
+      <ResponseCard
+        response={response}
+        error={error}
+        loading={loading}
+        className="mb-6"
+      />
     </div>
   );
 };

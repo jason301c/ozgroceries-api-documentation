@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import type { ApiEndpoint } from "../hooks/useApiCall";
 import ParameterInputCard from "./ParameterInputCard";
+import ResponseCard from "./ResponseCard";
 
 interface RightDesktopViewProps {
   selectedEndpoint: ApiEndpoint | null;
@@ -68,9 +69,7 @@ const RightDesktopView: React.FC<RightDesktopViewProps> = ({
                 <h4 className="text-sm font-semibold text-gray-800">
                   {item.title}
                 </h4>
-                <p className="mt-1 text-sm text-gray-600">
-                  {item.description}
-                </p>
+                <p className="mt-1 text-sm text-gray-600">{item.description}</p>
               </div>
             ))}
           </div>
@@ -128,25 +127,12 @@ const RightDesktopView: React.FC<RightDesktopViewProps> = ({
               </button>
             </div>
 
-            {error && (
-              <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3">
-                <h3 className="text-sm font-semibold text-red-700">Error</h3>
-                <pre className="mt-2 max-h-[320px] overflow-y-auto whitespace-pre-wrap break-words rounded border border-red-200 bg-white p-3 font-mono text-xs text-red-600">
-                  {error}
-                </pre>
-              </div>
-            )}
-
-            {response && (
-              <div className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-4 shadow-inner">
-                <h3 className="text-sm font-semibold text-gray-800">
-                  Response
-                </h3>
-                <pre className="mt-3 max-h-[420px] overflow-y-auto whitespace-pre-wrap break-words font-mono text-xs text-gray-700">
-                  {JSON.stringify(response, null, 2)}
-                </pre>
-              </div>
-            )}
+            <ResponseCard
+              response={response}
+              error={error}
+              loading={loading}
+              maxHeight="420px"
+            />
           </div>
         </div>
       </div>
