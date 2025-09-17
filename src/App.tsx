@@ -1,9 +1,8 @@
 import ApiDocumentation from './components/ApiDocumentation'
-import './App.css'
 
 function App() {
   return (
-    <div className="container">
+    <div className="h-screen">
       <ApiDocumentation />
     </div>
   )
