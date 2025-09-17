@@ -1,0 +1,248 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #ffffff;
+  color: #333333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.api-documentation {
+  min-height: 100vh;
+}
+
+.api-documentation h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #ff8c42;
+  padding-bottom: 0.5rem;
+}
+
+.api-documentation h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  margin: 2rem 0 1rem 0;
+}
+
+.api-documentation h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  margin: 1.5rem 0 0.5rem 0;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.endpoints-list {
+  margin-bottom: 3rem;
+}
+
+.endpoint-item {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.endpoint-item:hover {
+  border-color: #ff8c42;
+  box-shadow: 0 2px 8px rgba(255, 140, 66, 0.1);
+}
+
+.endpoint-item.selected {
+  border-color: #ff8c42;
+  background: #fff5f0;
+}
+
+.method-path {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.method {
+  background: #ff8c42;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.path {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  color: #333;
+}
+
+.endpoint-description {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.endpoint-details {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.parameters-section {
+  margin: 2rem 0;
+}
+
+.parameters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.parameter-item {
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.parameter-item label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.param-name {
+  color: #333;
+}
+
+.param-type {
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.required {
+  color: #ff8c42;
+  font-weight: 700;
+}
+
+.parameter-item input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.parameter-item input:focus {
+  outline: none;
+  border-color: #ff8c42;
+  box-shadow: 0 0 0 2px rgba(255, 140, 66, 0.1);
+}
+
+.param-description {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.25rem;
+}
+
+.request-section {
+  margin: 2rem 0;
+}
+
+.execute-btn {
+  background: #ff8c42;
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.execute-btn:hover:not(:disabled) {
+  background: #e67e30;
+  transform: translateY(-1px);
+}
+
+.execute-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.error-section {
+  margin: 2rem 0;
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.error-message {
+  color: #c53030;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.response-section {
+  margin: 2rem 0;
+}
+
+.response-json {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Scrollbar styling */
+.response-json::-webkit-scrollbar {
+  width: 8px;
+}
+
+.response-json::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.response-json::-webkit-scrollbar-thumb {
+  background: #ff8c42;
+  border-radius: 4px;
+}
+
+.response-json::-webkit-scrollbar-thumb:hover {
+  background: #e67e30;
+}
